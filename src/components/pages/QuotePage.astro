@@ -1,0 +1,307 @@
+---
+import { t, type Lang } from '../../i18n/translations';
+import { getLocalePath } from '../../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+---
+
+<!-- Hero -->
+<section class="relative h-[40vh] min-h-[350px] flex items-center">
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1700727448686-b314cb5f9948?fm=jpg&q=80&w=1920&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-[#2d3a2e]/80"></div>
+  </div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-4xl md:text-5xl font-bold text-white">{t(lang, 'quote.hero.title')}</h1>
+    <p class="mt-4 text-lg text-gray-200 max-w-xl">{t(lang, 'quote.hero.desc')}</p>
+  </div>
+</section>
+
+<!-- Quote form -->
+<section class="py-20 bg-[#faf9f6]">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" data-aos="fade-up">
+    <form id="quote-form" class="space-y-8" novalidate>
+      <!-- Step 1: Contact -->
+      <div id="step-1" class="step">
+        <div class="flex items-center gap-3 mb-5 pb-3 border-b border-gray-200">
+          <span class="w-8 h-8 bg-[#c67a4a] rounded-full flex items-center justify-center text-white text-sm font-bold">1</span>
+          <h2 class="text-xl font-bold text-[#2d3a2e]">{t(lang, 'quote.step1.title')}</h2>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label for="company" class="block text-sm font-medium text-[#2d3a2e] mb-1">{t(lang, 'quote.step1.company')} <span class="text-[#c67a4a]">*</span></label>
+            <input type="text" id="company" name="company" required
+              class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-[#c67a4a] focus:border-[#c67a4a] outline-none transition-colors" />
+            <p class="error-msg hidden text-xs text-red-600 mt-1">{t(lang, 'quote.error.company')}</p>
+          </div>
+          <div>
+            <label for="contact-name" class="block text-sm font-medium text-[#2d3a2e] mb-1">{t(lang, 'quote.step1.name')} <span class="text-[#c67a4a]">*</span></label>
+            <input type="text" id="contact-name" name="contact-name" required
+              class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-[#c67a4a] focus:border-[#c67a4a] outline-none transition-colors" />
+            <p class="error-msg hidden text-xs text-red-600 mt-1">{t(lang, 'quote.error.name')}</p>
+          </div>
+          <div>
+            <label for="quote-email" class="block text-sm font-medium text-[#2d3a2e] mb-1">{t(lang, 'quote.step1.email')} <span class="text-[#c67a4a]">*</span></label>
+            <input type="email" id="quote-email" name="email" required
+              class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-[#c67a4a] focus:border-[#c67a4a] outline-none transition-colors" />
+            <p class="error-msg hidden text-xs text-red-600 mt-1">{t(lang, 'quote.error.email')}</p>
+          </div>
+          <div>
+            <label for="quote-phone" class="block text-sm font-medium text-[#2d3a2e] mb-1">{t(lang, 'quote.step1.phone')}</label>
+            <input type="tel" id="quote-phone" name="phone"
+              class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-[#c67a4a] focus:border-[#c67a4a] outline-none transition-colors" />
+          </div>
+        </div>
+        <div class="mt-6">
+          <button type="button" class="next-btn bg-[#c67a4a] text-white px-7 py-3 rounded font-semibold hover:bg-[#b06a3d] transition-colors text-sm uppercase tracking-wide">
+            {t(lang, 'quote.next')} &rarr;
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Product type -->
+      <div id="step-2" class="step hidden">
+        <div class="flex items-center gap-3 mb-5 pb-3 border-b border-gray-200">
+          <span class="w-8 h-8 bg-[#c67a4a] rounded-full flex items-center justify-center text-white text-sm font-bold">2</span>
+          <h2 class="text-xl font-bold text-[#2d3a2e]">{t(lang, 'quote.step2.title')}</h2>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <label class="product-option cursor-pointer">
+            <input type="radio" name="product-type" value="bags" class="sr-only peer" />
+            <div class="p-5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#c67a4a] peer-checked:bg-[#c67a4a]/5 hover:border-gray-300 transition-colors">
+              <div class="text-2xl mb-2">🛍️</div>
+              <span class="font-semibold text-[#2d3a2e] text-sm">{t(lang, 'quote.step2.bags')}</span>
+            </div>
+          </label>
+          <label class="product-option cursor-pointer">
+            <input type="radio" name="product-type" value="other" class="sr-only peer" />
+            <div class="p-5 border-2 border-gray-200 rounded-lg text-center peer-checked:border-[#c67a4a] peer-checked:bg-[#c67a4a]/5 hover:border-gray-300 transition-colors">
+              <div class="text-2xl mb-2">✏️</div>
+              <span class="font-semibold text-[#2d3a2e] text-sm">{t(lang, 'quote.step2.other')}</span>
+            </div>
+          </label>
+        </div>
+        <p id="step2-error" class="hidden text-sm text-red-600 mt-3">{t(lang, 'quote.error.product')}</p>
+        <div class="mt-6 flex gap-3">
+          <button type="button" class="back-btn border-2 border-gray-300 text-[#6b6560] px-7 py-3 rounded font-semibold hover:border-[#2d3a2e] hover:text-[#2d3a2e] transition-colors text-sm uppercase tracking-wide">
+            &larr; {t(lang, 'quote.back')}
+          </button>
+          <button type="button" class="next-btn bg-[#c67a4a] text-white px-7 py-3 rounded font-semibold hover:bg-[#b06a3d] transition-colors text-sm uppercase tracking-wide">
+            {t(lang, 'quote.next')} &rarr;
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3: Specs -->
+      <div id="step-3" class="step hidden">
+        <div class="flex items-center gap-3 mb-5 pb-3 border-b border-gray-200">
+          <span class="w-8 h-8 bg-[#c67a4a] rounded-full flex items-center justify-center text-white text-sm font-bold">3</span>
+          <h2 class="text-xl font-bold text-[#2d3a2e]">{t(lang, 'quote.step3.title')}</h2>
+        </div>
+
+        <!-- Standard specs -->
+        <div id="specs-standard" class="space-y-4">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="quantity" class="block text-sm font-medium text-[#2d3a2e] mb-1">{t(lang, 'quote.step3.quantity')}</label>
+              <input type="text" id="quantity" name="quantity" placeholder={t(lang, 'quote.step3.quantity.placeholder')}
+                class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-[#c67a4a] focus:border-[#c67a4a] outline-none transition-colors" />
+            </div>
+            <div>
+              <label for="dimensions" class="block text-sm font-medium text-[#2d3a2e] mb-1">{t(lang, 'quote.step3.dimensions')}</label>
+              <input type="text" id="dimensions" name="dimensions" placeholder={t(lang, 'quote.step3.dimensions.placeholder')}
+                class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-[#c67a4a] focus:border-[#c67a4a] outline-none transition-colors" />
+            </div>
+          </div>
+          <div>
+            <label for="material" class="block text-sm font-medium text-[#2d3a2e] mb-1">{t(lang, 'quote.step3.material')}</label>
+            <input type="text" id="material" name="material" placeholder={t(lang, 'quote.step3.material.placeholder')}
+              class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-[#c67a4a] focus:border-[#c67a4a] outline-none transition-colors" />
+          </div>
+          <div>
+            <label for="printing" class="block text-sm font-medium text-[#2d3a2e] mb-1">{t(lang, 'quote.step3.printing')}</label>
+            <select id="printing" name="printing"
+              class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-[#c67a4a] focus:border-[#c67a4a] outline-none transition-colors">
+              <option value="">{t(lang, 'quote.step3.printing.placeholder')}</option>
+              <option value="none">{t(lang, 'quote.step3.printing.none')}</option>
+              <option value="1-2">{t(lang, 'quote.step3.printing.1-2')}</option>
+              <option value="3-4">{t(lang, 'quote.step3.printing.3-4')}</option>
+              <option value="full">{t(lang, 'quote.step3.printing.full')}</option>
+              <option value="unsure">{t(lang, 'quote.step3.printing.unsure')}</option>
+            </select>
+          </div>
+          <div>
+            <label for="details" class="block text-sm font-medium text-[#2d3a2e] mb-1">{t(lang, 'quote.step3.details')}</label>
+            <textarea id="details" name="details" rows="3" placeholder={t(lang, 'quote.step3.details.placeholder')}
+              class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-[#c67a4a] focus:border-[#c67a4a] outline-none transition-colors resize-vertical"></textarea>
+          </div>
+        </div>
+
+        <!-- Free-form (for "Something Else") -->
+        <div id="specs-other" class="space-y-4 hidden">
+          <p class="text-[#6b6560] text-sm">{t(lang, 'quote.step3.other.desc')}</p>
+          <div>
+            <label for="other-description" class="block text-sm font-medium text-[#2d3a2e] mb-1">{t(lang, 'quote.step3.other.label')} <span class="text-[#c67a4a]">*</span></label>
+            <textarea id="other-description" name="other-description" rows="6" placeholder={t(lang, 'quote.step3.other.placeholder')}
+              class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-[#c67a4a] focus:border-[#c67a4a] outline-none transition-colors resize-vertical"></textarea>
+            <p id="other-error" class="hidden text-xs text-red-600 mt-1">{t(lang, 'quote.error.other')}</p>
+          </div>
+        </div>
+
+        <div class="mt-6 flex gap-3">
+          <button type="button" class="back-btn border-2 border-gray-300 text-[#6b6560] px-7 py-3 rounded font-semibold hover:border-[#2d3a2e] hover:text-[#2d3a2e] transition-colors text-sm uppercase tracking-wide">
+            &larr; {t(lang, 'quote.back')}
+          </button>
+          <button type="submit" class="bg-[#c67a4a] text-white px-10 py-3 rounded font-semibold hover:bg-[#b06a3d] transition-colors text-sm uppercase tracking-wide">
+            {t(lang, 'quote.submit')}
+          </button>
+        </div>
+        <p class="mt-4 text-sm text-[#6b6560]">{t(lang, 'quote.note')}</p>
+      </div>
+    </form>
+
+    <!-- Progress indicator -->
+    <div class="mt-10 flex items-center justify-center gap-2">
+      <div class="step-dot w-3 h-3 rounded-full bg-[#c67a4a] transition-colors"></div>
+      <div class="step-dot w-3 h-3 rounded-full bg-gray-300 transition-colors"></div>
+      <div class="step-dot w-3 h-3 rounded-full bg-gray-300 transition-colors"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  input.invalid, textarea.invalid {
+    border-color: #dc2626;
+  }
+</style>
+
+<script is:inline>
+  const steps = document.querySelectorAll('.step');
+  const dots = document.querySelectorAll('.step-dot');
+  let current = 0;
+
+  function showStep(index) {
+    steps.forEach((step, i) => {
+      if (i === index) {
+        step.classList.remove('hidden');
+        step.style.opacity = '0';
+        step.style.transform = 'translateY(10px)';
+        requestAnimationFrame(() => {
+          step.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+          step.style.opacity = '1';
+          step.style.transform = 'translateY(0)';
+        });
+      } else {
+        step.classList.add('hidden');
+      }
+    });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('bg-[#c67a4a]', i <= index);
+      dot.classList.toggle('bg-gray-300', i > index);
+    });
+    current = index;
+    window.scrollTo({ top: document.getElementById('quote-form').offsetTop - 100, behavior: 'smooth' });
+  }
+
+  function validateStep1() {
+    const fields = [
+      { el: document.getElementById('company') },
+      { el: document.getElementById('contact-name') },
+      { el: document.getElementById('quote-email') },
+    ];
+
+    let valid = true;
+    fields.forEach(({ el }) => {
+      const errorEl = el.parentElement.querySelector('.error-msg');
+      el.classList.remove('invalid');
+      if (errorEl) errorEl.classList.add('hidden');
+    });
+
+    fields.forEach(({ el }) => {
+      const errorEl = el.parentElement.querySelector('.error-msg');
+      if (!el.value.trim()) {
+        el.classList.add('invalid');
+        if (errorEl) errorEl.classList.remove('hidden');
+        valid = false;
+      }
+      if (el.type === 'email' && el.value.trim() && !el.value.includes('@')) {
+        el.classList.add('invalid');
+        if (errorEl) errorEl.classList.remove('hidden');
+        valid = false;
+      }
+    });
+
+    return valid;
+  }
+
+  function validateStep2() {
+    const selected = document.querySelector('input[name="product-type"]:checked');
+    const errorEl = document.getElementById('step2-error');
+    if (!selected) {
+      errorEl.classList.remove('hidden');
+      return false;
+    }
+    errorEl.classList.add('hidden');
+    return true;
+  }
+
+  function validateStep3() {
+    const productType = document.querySelector('input[name="product-type"]:checked')?.value;
+    if (productType === 'other') {
+      const desc = document.getElementById('other-description');
+      const errorEl = document.getElementById('other-error');
+      if (!desc.value.trim()) {
+        desc.classList.add('invalid');
+        errorEl.classList.remove('hidden');
+        return false;
+      }
+      desc.classList.remove('invalid');
+      errorEl.classList.add('hidden');
+    }
+    return true;
+  }
+
+  function updateStep3View() {
+    const productType = document.querySelector('input[name="product-type"]:checked')?.value;
+    const standard = document.getElementById('specs-standard');
+    const other = document.getElementById('specs-other');
+
+    if (productType === 'other') {
+      standard.classList.add('hidden');
+      other.classList.remove('hidden');
+    } else {
+      standard.classList.remove('hidden');
+      other.classList.add('hidden');
+    }
+  }
+
+  document.querySelectorAll('input[name="product-type"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      document.getElementById('step2-error').classList.add('hidden');
+    });
+  });
+
+  document.querySelectorAll('.next-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (current === 0 && !validateStep1()) return;
+      if (current === 1) {
+        if (!validateStep2()) return;
+        updateStep3View();
+      }
+      if (current < steps.length - 1) showStep(current + 1);
+    });
+  });
+
+  document.querySelectorAll('.back-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (current > 0) showStep(current - 1);
+    });
+  });
+
+  document.getElementById('quote-form').addEventListener('submit', (e) => {
+    if (!validateStep3()) {
+      e.preventDefault();
+    }
+  });
+</script>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kart 13 — Color Identity Swatches</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #faf9f6; padding: 40px 20px; }
+    h1 { text-align: center; margin-bottom: 10px; color: #2d3a2e; font-size: 28px; }
+    .subtitle { text-align: center; color: #666; margin-bottom: 50px; font-size: 14px; }
+    .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+
+    .option { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .option-header { padding: 30px; color: white; }
+    .option-header h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; margin-bottom: 12px; }
+    .logo { font-size: 32px; font-weight: 800; letter-spacing: -1px; }
+
+    .swatches { display: flex; height: 60px; }
+    .swatch { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; }
+
+    .preview { padding: 30px; background: white; }
+    .preview-nav { display: flex; gap: 20px; margin-bottom: 20px; font-size: 13px; color: #666; }
+    .preview-nav .active { font-weight: 700; }
+    .preview-btn { display: inline-block; padding: 10px 24px; border-radius: 6px; font-size: 14px; font-weight: 600; color: white; margin-right: 10px; margin-bottom: 8px; }
+    .preview-btn-outline { display: inline-block; padding: 10px 24px; border-radius: 6px; font-size: 14px; font-weight: 600; border: 2px solid; background: transparent; margin-bottom: 8px; }
+    .preview-card { margin-top: 16px; padding: 16px; border-radius: 8px; border-left: 4px solid; }
+    .preview-card h4 { font-size: 14px; margin-bottom: 4px; }
+    .preview-card p { font-size: 12px; color: #666; }
+
+    /* Option A: Forest & Terracotta */
+    .opt-a .option-header { background: #2d3a2e; }
+    .opt-a .logo span { color: #c67a4a; }
+    .opt-a .swatch-1 { background: #2d3a2e; color: white; }
+    .opt-a .swatch-2 { background: #c67a4a; color: white; }
+    .opt-a .swatch-3 { background: #f5ebe0; color: #6b4226; }
+    .opt-a .swatch-4 { background: #faf9f6; color: #2d3a2e; }
+    .opt-a .swatch-5 { background: #4a6b4e; color: white; }
+    .opt-a .preview { background: #faf9f6; }
+    .opt-a .preview-nav .active { color: #c67a4a; }
+    .opt-a .preview-btn { background: #c67a4a; }
+    .opt-a .preview-btn-outline { border-color: #2d3a2e; color: #2d3a2e; }
+    .opt-a .preview-card { border-left-color: #c67a4a; background: #f5ebe0; }
+
+    /* Option B: Olive & Wheat */
+    .opt-b .option-header { background: #3d4a2f; }
+    .opt-b .logo span { color: #d4a843; }
+    .opt-b .swatch-1 { background: #3d4a2f; color: white; }
+    .opt-b .swatch-2 { background: #d4a843; color: #3d4a2f; }
+    .opt-b .swatch-3 { background: #f7f0dc; color: #6b5a1e; }
+    .opt-b .swatch-4 { background: #faf9f6; color: #3d4a2f; }
+    .opt-b .swatch-5 { background: #6b8f4a; color: white; }
+    .opt-b .preview { background: #faf9f6; }
+    .opt-b .preview-nav .active { color: #3d4a2f; }
+    .opt-b .preview-btn { background: #3d4a2f; }
+    .opt-b .preview-btn-outline { border-color: #d4a843; color: #6b5a1e; }
+    .opt-b .preview-card { border-left-color: #6b8f4a; background: #f7f0dc; }
+
+    /* Option C: Stone & Sage */
+    .opt-c .option-header { background: #4a4540; }
+    .opt-c .logo span { color: #7a9e6d; }
+    .opt-c .swatch-1 { background: #4a4540; color: white; }
+    .opt-c .swatch-2 { background: #7a9e6d; color: white; }
+    .opt-c .swatch-3 { background: #e8efe5; color: #3d5a35; }
+    .opt-c .swatch-4 { background: #faf8f5; color: #4a4540; }
+    .opt-c .swatch-5 { background: #b8956b; color: white; }
+    .opt-c .preview { background: #faf8f5; }
+    .opt-c .preview-nav .active { color: #7a9e6d; }
+    .opt-c .preview-btn { background: #7a9e6d; }
+    .opt-c .preview-btn-outline { border-color: #4a4540; color: #4a4540; }
+    .opt-c .preview-card { border-left-color: #7a9e6d; background: #e8efe5; }
+
+    .section-dark { margin-top: 50px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    .section-dark h2 { text-align: center; margin-bottom: 20px; color: #2d3a2e; }
+    .dark-previews { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+    .dark-hero { padding: 40px 30px; border-radius: 12px; color: white; }
+    .dark-hero h3 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+    .dark-hero p { font-size: 14px; opacity: 0.8; margin-bottom: 16px; }
+    .dark-hero .btn { display: inline-block; padding: 10px 20px; border-radius: 6px; font-weight: 600; font-size: 13px; }
+
+    .hero-a { background: linear-gradient(135deg, #2d3a2e 0%, #3d4d3f 100%); }
+    .hero-a .btn { background: #c67a4a; color: white; }
+    .hero-b { background: linear-gradient(135deg, #3d4a2f 0%, #4d5c3d 100%); }
+    .hero-b .btn { background: #d4a843; color: #3d4a2f; }
+    .hero-c { background: linear-gradient(135deg, #4a4540 0%, #5a554f 100%); }
+    .hero-c .btn { background: #7a9e6d; color: white; }
+
+    .mood { max-width: 1200px; margin: 50px auto 0; }
+    .mood h2 { text-align: center; margin-bottom: 10px; color: #2d3a2e; }
+    .mood p { text-align: center; color: #666; font-size: 13px; margin-bottom: 20px; }
+    .mood-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .mood-card { border-radius: 8px; padding: 20px; text-align: center; font-size: 12px; font-weight: 500; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <h1>Kart 13 — Bulgarian Countryside, Professional</h1>
+  <p class="subtitle">Warm, grounded, natural — no cold grey. Earth tones that feel like home but still mean business.</p>
+
+  <div class="options">
+    <!-- Option A: Forest & Terracotta -->
+    <div class="option opt-a">
+      <div class="option-header">
+        <h2>A — Forest & Terracotta</h2>
+        <div class="logo">KART <span>13</span></div>
+      </div>
+      <div class="swatches">
+        <div class="swatch swatch-1">Deep Forest</div>
+        <div class="swatch swatch-2">Terracotta</div>
+        <div class="swatch swatch-3">Warm Sand</div>
+        <div class="swatch swatch-5">Mid Green</div>
+        <div class="swatch swatch-4">Cream</div>
+      </div>
+      <div class="preview">
+        <div class="preview-nav">
+          <span>Home</span><span>About</span><span class="active">Products</span><span>Contact</span>
+        </div>
+        <span class="preview-btn">Get a Quote</span>
+        <span class="preview-btn-outline">View Products</span>
+        <div class="preview-card">
+          <h4>Flexible Packaging</h4>
+          <p>Bags, pouches, wraps for food and consumer goods.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option B: Olive & Wheat -->
+    <div class="option opt-b">
+      <div class="option-header">
+        <h2>B — Olive & Wheat</h2>
+        <div class="logo">KART <span>13</span></div>
+      </div>
+      <div class="swatches">
+        <div class="swatch swatch-1">Dark Olive</div>
+        <div class="swatch swatch-2">Wheat Gold</div>
+        <div class="swatch swatch-3">Pale Wheat</div>
+        <div class="swatch swatch-5">Field Green</div>
+        <div class="swatch swatch-4">Cream</div>
+      </div>
+      <div class="preview">
+        <div class="preview-nav">
+          <span>Home</span><span>About</span><span class="active">Products</span><span>Contact</span>
+        </div>
+        <span class="preview-btn">Get a Quote</span>
+        <span class="preview-btn-outline">View Products</span>
+        <div class="preview-card">
+          <h4>Flexible Packaging</h4>
+          <p>Bags, pouches, wraps for food and consumer goods.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option C: Stone & Sage -->
+    <div class="option opt-c">
+      <div class="option-header">
+        <h2>C — Stone & Sage</h2>
+        <div class="logo">KART <span>13</span></div>
+      </div>
+      <div class="swatches">
+        <div class="swatch swatch-1">Warm Stone</div>
+        <div class="swatch swatch-2">Sage Green</div>
+        <div class="swatch swatch-3">Pale Sage</div>
+        <div class="swatch swatch-5">Sandstone</div>
+        <div class="swatch swatch-4">Warm White</div>
+      </div>
+      <div class="preview">
+        <div class="preview-nav">
+          <span>Home</span><span>About</span><span class="active">Products</span><span>Contact</span>
+        </div>
+        <span class="preview-btn">Get a Quote</span>
+        <span class="preview-btn-outline">View Products</span>
+        <div class="preview-card">
+          <h4>Flexible Packaging</h4>
+          <p>Bags, pouches, wraps for food and consumer goods.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dark hero previews -->
+  <div class="section-dark">
+    <h2>Hero Section Previews</h2>
+    <div class="dark-previews">
+      <div class="dark-hero hero-a">
+        <h3>Custom Plastic Packaging</h3>
+        <p>Tailored solutions built with care.</p>
+        <span class="btn">Get a Quote</span>
+      </div>
+      <div class="dark-hero hero-b">
+        <h3>Custom Plastic Packaging</h3>
+        <p>Tailored solutions built with care.</p>
+        <span class="btn">Get a Quote</span>
+      </div>
+      <div class="dark-hero hero-c">
+        <h3>Custom Plastic Packaging</h3>
+        <p>Tailored solutions built with care.</p>
+        <span class="btn">Get a Quote</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mood words -->
+  <div class="mood">
+    <h2>What each palette evokes</h2>
+    <p>Think: which one feels like Kart 13?</p>
+    <div class="mood-grid">
+      <div class="mood-card" style="background: #f5ebe0; color: #6b4226;">
+        <strong>A — Forest & Terracotta</strong><br/><br/>
+        Rhodope mountains • clay rooftops • reliable warmth • handshake deal • rooted
+      </div>
+      <div class="mood-card" style="background: #f7f0dc; color: #3d4a2f;">
+        <strong>B — Olive & Wheat</strong><br/><br/>
+        Thracian plains • wheat fields • harvest gold • abundant • generous
+      </div>
+      <div class="mood-card" style="background: #e8efe5; color: #4a4540;">
+        <strong>C — Stone & Sage</strong><br/><br/>
+        Mountain herbs • old stone walls • quiet strength • understated • lasting
+      </div>
+    </div>
+  </div>
+</body>
+</html>

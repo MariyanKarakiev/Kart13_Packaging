@@ -1,0 +1,110 @@
+---
+import { t, type Lang } from '../../i18n/translations';
+import { getLocalePath } from '../../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+---
+
+<!-- Hero -->
+<section class="relative h-[50vh] min-h-[400px] flex items-center">
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1730584475392-b633246fd486?fm=jpg&q=80&w=1920&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-[#2d3a2e]/80"></div>
+  </div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-4xl md:text-5xl font-bold text-white">{t(lang, 'products.hero.title')}</h1>
+    <p class="mt-4 text-lg text-gray-200 max-w-xl">{t(lang, 'products.hero.desc')}</p>
+  </div>
+</section>
+
+<!-- Bags -->
+<section class="py-20 bg-[#faf9f6]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div data-aos="fade-right">
+        <img src="https://images.unsplash.com/photo-1675109786596-0c20239ad292?fm=jpg&q=80&w=800&auto=format&fit=crop" alt="" class="rounded-lg shadow-lg w-full aspect-[4/3] object-cover" />
+      </div>
+      <div data-aos="fade-left">
+        <span class="text-[#c67a4a] font-semibold text-sm uppercase tracking-wide">{t(lang, 'products.bags.label')}</span>
+        <h2 class="text-3xl font-bold text-[#2d3a2e] mt-2">{t(lang, 'products.bags.title')}</h2>
+        <p class="mt-4 text-[#6b6560] leading-relaxed">{t(lang, 'products.bags.desc')}</p>
+        <ul class="mt-6 space-y-3">
+          {['1','2','3','4','5','6'].map(n => (
+            <li class="flex items-start gap-3">
+              <span class="w-2 h-2 bg-[#c67a4a] rounded-full mt-2 flex-shrink-0"></span>
+              <span class="text-[#6b6560]">{t(lang, `products.bags.${n}`)}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Custom -->
+<section class="py-20 bg-[#faf9f6]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div data-aos="fade-right">
+        <img src="https://images.unsplash.com/photo-1777464375799-768774f30542?fm=jpg&q=80&w=800&auto=format&fit=crop" alt="" class="rounded-lg shadow-lg w-full aspect-[4/3] object-cover" />
+      </div>
+      <div data-aos="fade-left">
+        <span class="text-[#c67a4a] font-semibold text-sm uppercase tracking-wide">{t(lang, 'products.custom.label')}</span>
+        <h2 class="text-3xl font-bold text-[#2d3a2e] mt-2">{t(lang, 'products.custom.title')}</h2>
+        <p class="mt-4 text-[#6b6560] leading-relaxed">{t(lang, 'products.custom.desc')}</p>
+        <ul class="mt-6 space-y-3">
+          {['1','2','3','4'].map(n => (
+            <li class="flex items-start gap-3">
+              <span class="w-2 h-2 bg-[#c67a4a] rounded-full mt-2 flex-shrink-0"></span>
+              <span class="text-[#6b6560]">{t(lang, `products.custom.${n}`)}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Materials -->
+<section class="py-20 bg-[#2d3a2e]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-white text-center" data-aos="fade-up">{t(lang, 'products.materials.title')}</h2>
+    <p class="mt-3 text-gray-300 text-center" data-aos="fade-up" data-aos-delay="100">{t(lang, 'products.materials.desc')}</p>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-10">
+      <div class="bg-white/10 border border-white/20 rounded-lg p-5 text-center" data-aos="fade-up" data-aos-delay="0">
+        <span class="text-white font-bold">LDPE</span>
+        <p class="text-xs text-gray-400 mt-1">{t(lang, 'products.materials.ldpe')}</p>
+      </div>
+      <div class="bg-white/10 border border-white/20 rounded-lg p-5 text-center" data-aos="fade-up" data-aos-delay="50">
+        <span class="text-white font-bold">HDPE</span>
+        <p class="text-xs text-gray-400 mt-1">{t(lang, 'products.materials.hdpe')}</p>
+      </div>
+      <div class="bg-white/10 border border-white/20 rounded-lg p-5 text-center" data-aos="fade-up" data-aos-delay="100">
+        <span class="text-white font-bold">PP</span>
+        <p class="text-xs text-gray-400 mt-1">{t(lang, 'products.materials.pp')}</p>
+      </div>
+      <div class="bg-white/10 border border-white/20 rounded-lg p-5 text-center" data-aos="fade-up" data-aos-delay="150">
+        <span class="text-white font-bold">LLDPE</span>
+        <p class="text-xs text-gray-400 mt-1">{t(lang, 'products.materials.lldpe')}</p>
+      </div>
+      <div class="bg-white/10 border border-white/20 rounded-lg p-5 text-center" data-aos="fade-up" data-aos-delay="200">
+        <span class="text-white font-bold">{t(lang, 'products.materials.recycled')}</span>
+        <p class="text-xs text-gray-400 mt-1">{t(lang, 'products.materials.recycled.desc')}</p>
+      </div>
+      <div class="bg-white/10 border border-white/20 rounded-lg p-5 text-center" data-aos="fade-up" data-aos-delay="250">
+        <span class="text-white font-bold">{t(lang, 'products.materials.custom')}</span>
+        <p class="text-xs text-gray-400 mt-1">{t(lang, 'products.materials.custom.desc')}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 bg-[#f5ebe0]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
+    <h2 class="text-3xl font-bold text-[#2d3a2e]">{t(lang, 'products.cta.title')}</h2>
+    <p class="mt-4 text-[#6b6560] max-w-lg mx-auto">{t(lang, 'products.cta.desc')}</p>
+    <a href={getLocalePath(lang, '/request-quote')} class="mt-8 inline-block bg-[#c67a4a] text-white px-8 py-3.5 rounded font-semibold hover:bg-[#b06a3d] transition-colors text-sm uppercase tracking-wide">{t(lang, 'products.cta.btn')}</a>
+  </div>
+</section>

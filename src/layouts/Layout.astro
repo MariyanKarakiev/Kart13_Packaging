@@ -1,0 +1,138 @@
+---
+import '../styles/global.css';
+import { t, languages, type Lang } from '../i18n/translations';
+import { getLangFromUrl, getLocalePath } from '../i18n/utils';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const lang = getLangFromUrl(Astro.url) as Lang;
+const { title = `Kart 13 Ltd. — ${lang === 'bg' ? 'Пластмасови опаковки' : 'Plastic Packaging'}`, description = '' } = Astro.props;
+
+const currentPath = Astro.url.pathname.replace(`/${lang}`, '') || '/';
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    {Object.keys(languages).map(l => (
+      <link rel="alternate" hreflang={l} href={getLocalePath(l as Lang, currentPath)} />
+    ))}
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen flex flex-col bg-[#faf9f6] text-[#2d3a2e] font-sans">
+    <header class="absolute top-0 left-0 right-0 z-50">
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <a href={getLocalePath(lang, '/')} class="text-xl font-bold text-white tracking-tight">
+          KART <span class="text-[#c67a4a]">13</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6">
+          <a href={getLocalePath(lang, '/')} class="text-sm font-medium text-white/80 hover:text-white transition-colors">{t(lang, 'nav.home')}</a>
+          <a href={getLocalePath(lang, '/about')} class="text-sm font-medium text-white/80 hover:text-white transition-colors">{t(lang, 'nav.about')}</a>
+          <a href={getLocalePath(lang, '/products')} class="text-sm font-medium text-white/80 hover:text-white transition-colors">{t(lang, 'nav.products')}</a>
+          <a href={getLocalePath(lang, '/contact')} class="text-sm font-medium text-white/80 hover:text-white transition-colors">{t(lang, 'nav.contact')}</a>
+          <a href={getLocalePath(lang, '/request-quote')} class="text-sm font-semibold bg-[#c67a4a] text-white px-5 py-2.5 rounded hover:bg-[#b06a3d] transition-colors">
+            {t(lang, 'nav.quote')}
+          </a>
+          <!-- Language switcher -->
+          <div class="relative" id="lang-switch">
+            <button class="text-sm font-medium text-white/80 hover:text-white transition-colors uppercase tracking-wide flex items-center gap-1" id="lang-btn">
+              {lang}
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </button>
+            <div class="hidden absolute right-0 top-full mt-2 bg-white rounded-lg shadow-lg py-2 min-w-[120px]" id="lang-dropdown">
+              {Object.entries(languages).map(([code, name]) => (
+                <a href={getLocalePath(code as Lang, currentPath)} class={`block px-4 py-2 text-sm hover:bg-gray-50 ${code === lang ? 'text-[#c67a4a] font-semibold' : 'text-[#2d3a2e]'}`}>
+                  {name}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-white" aria-label="Open menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </nav>
+      <div id="mobile-menu" class="hidden md:hidden bg-[#2d3a2e]/95 backdrop-blur px-4 py-4 space-y-3">
+        <a href={getLocalePath(lang, '/')} class="block text-sm font-medium text-white/80 hover:text-white">{t(lang, 'nav.home')}</a>
+        <a href={getLocalePath(lang, '/about')} class="block text-sm font-medium text-white/80 hover:text-white">{t(lang, 'nav.about')}</a>
+        <a href={getLocalePath(lang, '/products')} class="block text-sm font-medium text-white/80 hover:text-white">{t(lang, 'nav.products')}</a>
+        <a href={getLocalePath(lang, '/contact')} class="block text-sm font-medium text-white/80 hover:text-white">{t(lang, 'nav.contact')}</a>
+        <a href={getLocalePath(lang, '/request-quote')} class="block text-sm font-semibold bg-[#c67a4a] text-white px-5 py-2.5 rounded text-center hover:bg-[#b06a3d]">
+          {t(lang, 'nav.quote')}
+        </a>
+        <div class="flex gap-2 pt-2 border-t border-white/10">
+          {Object.entries(languages).map(([code, name]) => (
+            <a href={getLocalePath(code as Lang, currentPath)} class={`text-xs px-2 py-1 rounded ${code === lang ? 'bg-[#c67a4a] text-white' : 'text-white/60 hover:text-white'}`}>
+              {code.toUpperCase()}
+            </a>
+          ))}
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="bg-[#2d3a2e] text-gray-400 py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="text-white font-bold text-lg">KART <span class="text-[#c67a4a]">13</span></h3>
+            <p class="text-sm mt-3 leading-relaxed">{t(lang, 'footer.tagline')}<br/>{t(lang, 'footer.tagline2')}</p>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-3 text-sm">{t(lang, 'footer.pages')}</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href={getLocalePath(lang, '/about')} class="hover:text-white transition-colors">{t(lang, 'nav.about')}</a></li>
+              <li><a href={getLocalePath(lang, '/products')} class="hover:text-white transition-colors">{t(lang, 'nav.products')}</a></li>
+              <li><a href={getLocalePath(lang, '/contact')} class="hover:text-white transition-colors">{t(lang, 'nav.contact')}</a></li>
+              <li><a href={getLocalePath(lang, '/request-quote')} class="hover:text-white transition-colors">{t(lang, 'nav.quote')}</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold mb-3 text-sm">{t(lang, 'footer.contact')}</h4>
+            <ul class="space-y-2 text-sm">
+              <li>info@kart13.bg</li>
+              <li>+359 XXX XXX XXX</li>
+              <li>{lang === 'bg' ? 'България' : 'Bulgaria'}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-white/10 mt-8 pt-8 text-sm text-center text-gray-500">
+          <p>&copy; {new Date().getFullYear()} Kart 13 Ltd.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script is:inline>
+      document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+        document.getElementById('mobile-menu')?.classList.toggle('hidden');
+      });
+      document.getElementById('lang-btn')?.addEventListener('click', () => {
+        document.getElementById('lang-dropdown')?.classList.toggle('hidden');
+      });
+      document.addEventListener('click', (e) => {
+        if (!document.getElementById('lang-switch')?.contains(e.target)) {
+          document.getElementById('lang-dropdown')?.classList.add('hidden');
+        }
+      });
+      AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 80 });
+    </script>
+  </body>
+</html>
