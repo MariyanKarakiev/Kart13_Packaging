@@ -8,7 +8,7 @@ import { defineConfig } from 'astro/config';
       defaultLocale: 'bg',
       locales: ['bg', 'en', 'de', 'fr', 'nl'],
       routing: {
-        prefixDefaultLocale: true,
+        prefixDefaultLocale: false,
       },
     },
     vite: {
